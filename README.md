@@ -12,7 +12,7 @@ An interactive web application that generates educational flashcards from text i
 - 📏 Customizable answer length (Short, Medium, Long)
 - 🔄 Toggle between original and reversed order
 - 👁️ Show/hide all answers with one click
-- 📥 Download flashcards as JSON
+- 📥 Download flashcards as JSON, CSV
 
 ## Prerequisites
 
@@ -66,7 +66,7 @@ An interactive web application that generates educational flashcards from text i
 ## Configuration
 
 Customize the application through the sidebar:
-  - Minimum Flashcards: Set how many cards to generate (5-20)
+  - Minimum Flashcards: Set how many cards to generate (10-20)
   - Answer Length: Choose between Short, Medium, or Long answers
 
 
