@@ -34,20 +34,20 @@ style = "normal"
 weight = 400
 
 [theme]
-primaryColor = "#bb5a38"
-backgroundColor = "#f4f3ed"
-secondaryBackgroundColor = "#ecebe3"
-textColor = "#3d3a2a"
-linkColor = "#3d3a2a"
-borderColor = "#d3d2ca"
+primaryColor = "#bd93f9"
+backgroundColor = "#282a36"
+secondaryBackgroundColor = "#44475a"
+textColor = "#f8f8f2"
+linkColor = "#f8f8f2"
+borderColor = "#bd93f9"
 showWidgetBorder = true
 baseRadius = "0.6rem"
 font = "SpaceGrotesk"
 headingFont = "SpaceGroteskHeader"
 codeFont = "SpaceMono"
-codeBackgroundColor = "#ecebe4"
+codeBackgroundColor = "#E3F09B"
 showSidebarBorder = true
 
 [theme.sidebar]
-backgroundColor = "#e8e7dd"
-secondaryBackgroundColor = "#ecebe3"
+backgroundColor = "#282a36"
+secondaryBackgroundColor = "#44475a"

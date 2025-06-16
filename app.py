@@ -24,14 +24,14 @@ def setup_cerebras_client() -> Cerebras:
         st.error(f"Failed to initialize Cerebras client: {e}")
         st.stop()
 
-def generate_flashcards(input_text: str, client: Cerebras) -> Optional[Dict]:
+def generate_flashcards(input_text: str, num_flashcards: int, answer_length: str, client: Cerebras) -> Optional[Dict]:
     """
     Generate flashcards from input text using Cerebras API.
     """
-    system_prompt = '''
-        You are to generate flash cards for a given input text.
-        Generate a minimum of 12 flashcards with questions and answers (50-100 words each).
-        Return flashcards in JSON format with "flashcards" as root key containing array of objects.
+    system_prompt = f'''
+        Generate {num_flashcards} flashcards.
+        The length of flashcard answers should be {answer_length} words.
+        Return flashcards in JSON format.
         Each object should have "Question" and "Answer" keys.
         Ensure answers are concise but comprehensive.
         Do not use markdown or newline characters in the JSON output.
@@ -63,11 +63,7 @@ def display_flashcards_ui() -> None:
         return
     
     flashcards = st.session_state.flashcards
-    if "flashcards" not in flashcards:
-        st.error("Invalid flashcard format. Missing 'flashcards' key.")
-        return
-    
-    st.success(f"✅ Generated {len(flashcards['flashcards'])} flashcards!")
+    st.success(f"✅ Generated {len(flashcards)} flashcards!")
     
     # Store display settings in session state
     if "show_all" not in st.session_state:
@@ -93,13 +89,13 @@ def display_flashcards_ui() -> None:
             on_change=lambda: setattr(st.session_state, "reverse_order", not st.session_state.reverse_order)
         )
     
-    flashcard_list = flashcards["flashcards"]
+    # flashcard_list = flashcards
     if st.session_state.reverse_order:
-        flashcard_list = list(flashcard_list)[::-1]
+        flashcards = list(flashcards)[::-1]
     
     # Calculate correct numbering based on order
-    total_cards = len(flashcard_list)
-    for idx, card in enumerate(flashcard_list, start=1):
+    total_cards = len(flashcards)
+    for idx, card in enumerate(flashcards, start=1):
         # Calculate display number - if reversed, show original position
         display_num = (total_cards - idx + 1) if st.session_state.reverse_order else idx
         
@@ -110,7 +106,7 @@ def display_flashcards_ui() -> None:
         ):
             st.write(card['Answer'])
         
-        if idx < len(flashcard_list):
+        if idx < len(flashcards):
             st.divider()
 
 def main() -> None:
@@ -135,9 +131,9 @@ def main() -> None:
         st.header("Settings")
         st.session_state.num_flashcards = st.slider(
             "Minimum Flashcards to Generate", 
-            min_value=5, 
+            min_value=10, 
             max_value=20, 
-            value=12
+            value=15
         )
         st.session_state.answer_length = st.select_slider(
             "Answer Length (words)",
@@ -158,7 +154,11 @@ def main() -> None:
             if st.button("Generate Flashcards", type="primary", use_container_width=True):
                 if user_input.strip():
                     with st.spinner("🧠 Generating flashcards..."):
-                        result = generate_flashcards(user_input, st.session_state.client)
+                        result = generate_flashcards(
+                                    user_input,
+                                    st.session_state.num_flashcards,
+                                    st.session_state.answer_length,
+                                    st.session_state.client)
                         if result:
                             st.session_state.flashcards = result
                             # Initialize display settings
