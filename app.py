@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from cerebras.cloud.sdk import Cerebras
 import os
 import json
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 # Load environment variables
 try:

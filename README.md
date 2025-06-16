@@ -73,3 +73,35 @@ Customize the application through the sidebar:
 ## Screenshot
 
 ![Demo](docs/image.png) 
+
+## Sample
+### Input:
+Cloud services are considered "public" when they are delivered over the public Internet, and they may be offered as a paid subscription, or free of charge. Architecturally, there are few differences between public- and private-cloud services, but security concerns increase substantially when services (applications, storage, and other resources) are shared by multiple customers. Most public-cloud providers offer direct-connection services that allow customers to securely link their legacy data centers to their cloud-resident applications. Several factors like the functionality of the solutions, cost, integrational and organizational aspects as well as safety & security are influencing the decision of enterprises and organizations to choose a public cloud or on-premises solution.
+
+### Output:
+
+[Raw File](docs/flashcards.json)
+
+```json
+{
+  "flashcards": [
+    {
+      "Question": "What characterizes cloud services as public?",
+      "Answer": "Cloud services are considered public when they are delivered over the public Internet. They may be offered as a paid subscription or free of charge."
+    },
+    {
+      "Question": "What are the main differences between public and private cloud services architecturally?",
+      "Answer": "There are few differences between public and private cloud services architecturally. The main difference lies in security concerns, which increase substantially when services are shared by multiple customers in public clouds."
+    },
+    {
+      "Question": "How do public-cloud providers address security concerns for customers?",
+      "Answer": "Most public-cloud providers offer direct-connection services that allow customers to securely link their legacy data centers to their cloud-resident applications, thereby enhancing security."
+    },
+    {
+      "Question": "What factors influence the decision to choose a public cloud or on-premises solution?",
+      "Answer": "Several factors influence this decision, including the functionality of the solutions, cost, integrational and organizational aspects, as well as safety and security considerations."
+    },
+    ...
+  ]
+}
+```
