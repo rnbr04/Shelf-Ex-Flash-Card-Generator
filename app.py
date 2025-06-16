@@ -56,3 +56,136 @@ def generate_flashcards(input_text: str, client: Cerebras) -> Optional[Dict]:
     except Exception as e:
         st.error(f"Error generating flashcards: {str(e)}")
         return None
+
+def display_flashcards_ui() -> None:
+    """Display flashcards UI with persistent controls."""
+    if "flashcards" not in st.session_state:
+        return
+    
+    flashcards = st.session_state.flashcards
+    if "flashcards" not in flashcards:
+        st.error("Invalid flashcard format. Missing 'flashcards' key.")
+        return
+    
+    st.success(f"✅ Generated {len(flashcards['flashcards'])} flashcards!")
+    
+    # Store display settings in session state
+    if "show_all" not in st.session_state:
+        st.session_state.show_all = False
+    if "reverse_order" not in st.session_state:
+        st.session_state.reverse_order = False
+    
+    # Use columns for better layout
+    cols = st.columns(2)
+    with cols[0]:
+        # Toggle buttons that don't trigger rerun
+        show_all = st.toggle(
+            "Show All Answers",
+            value=st.session_state.show_all,
+            key="show_all_toggle",
+            on_change=lambda: setattr(st.session_state, "show_all", not st.session_state.show_all)
+        )
+    with cols[1]:
+        reverse_order = st.toggle(
+            "Reverse Order",
+            value=st.session_state.reverse_order,
+            key="reverse_order_toggle",
+            on_change=lambda: setattr(st.session_state, "reverse_order", not st.session_state.reverse_order)
+        )
+    
+    flashcard_list = flashcards["flashcards"]
+    if st.session_state.reverse_order:
+        flashcard_list = list(flashcard_list)[::-1]
+    
+    # Calculate correct numbering based on order
+    total_cards = len(flashcard_list)
+    for idx, card in enumerate(flashcard_list, start=1):
+        # Calculate display number - if reversed, show original position
+        display_num = (total_cards - idx + 1) if st.session_state.reverse_order else idx
+        
+        # Use the session state value for expanded state
+        with st.expander(
+            f"Card {display_num}: {card['Question']}", 
+            expanded=st.session_state.show_all
+        ):
+            st.write(card['Answer'])
+        
+        if idx < len(flashcard_list):
+            st.divider()
+
+def main() -> None:
+    """Main application function."""
+    st.set_page_config(
+        page_title="Flashcard Generator", 
+        page_icon="📚", 
+        layout="centered"
+    )
+    
+    # Initialize client and flashcards in session state
+    if "client" not in st.session_state:
+        st.session_state.client = setup_cerebras_client()
+    
+    st.title("📚 Flashcard Generator")
+    st.markdown("""
+        Transform your study material into interactive flashcards using AI.
+        Simply paste your text below and click the generate button.
+    """)
+    
+    with st.sidebar:
+        st.header("Settings")
+        st.session_state.num_flashcards = st.slider(
+            "Minimum Flashcards to Generate", 
+            min_value=5, 
+            max_value=20, 
+            value=12
+        )
+        st.session_state.answer_length = st.select_slider(
+            "Answer Length (words)",
+            options=["Short (30-50)", "Medium (50-100)", "Long (100-150)"],
+            value="Medium (50-100)"
+        )
+    
+    with st.container():
+        user_input = st.text_area(
+            "Paste your study material here:",
+            height=300,
+            key="user_input",
+            placeholder="Enter text, notes, or any content you want to turn into flashcards..."
+        )
+        
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            if st.button("Generate Flashcards", type="primary", use_container_width=True):
+                if user_input.strip():
+                    with st.spinner("🧠 Generating flashcards..."):
+                        result = generate_flashcards(user_input, st.session_state.client)
+                        if result:
+                            st.session_state.flashcards = result
+                            # Initialize display settings
+                            st.session_state.show_all = False
+                            st.session_state.reverse_order = False
+                            st.rerun()  # Refresh to show flashcards
+                else:
+                    st.warning("Please enter some text to generate flashcards.")
+        
+        with col2:
+            if st.button("Clear", use_container_width=True):
+                if "flashcards" in st.session_state:
+                    del st.session_state.flashcards
+                st.rerun()
+        
+        # Display flashcards if they exist in session state
+        if "flashcards" in st.session_state:
+            display_flashcards_ui()
+            
+            # Add download option
+            json_str = json.dumps(st.session_state.flashcards, indent=2)
+            st.download_button(
+                label="Download Flashcards (JSON)",
+                data=json_str,
+                file_name="flashcards.json",
+                mime="application/json"
+            )
+
+if __name__ == "__main__":
+    main()
