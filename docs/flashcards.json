@@ -1,52 +1,62 @@
-{
-  "flashcards": [
-    {
-      "Question": "What characterizes cloud services as public?",
-      "Answer": "Cloud services are considered public when they are delivered over the public Internet. They may be offered as a paid subscription or free of charge."
-    },
-    {
-      "Question": "What are the main differences between public and private cloud services architecturally?",
-      "Answer": "There are few differences between public and private cloud services architecturally. The main difference lies in security concerns, which increase substantially when services are shared by multiple customers in public clouds."
-    },
-    {
-      "Question": "How do public-cloud providers address security concerns for customers?",
-      "Answer": "Most public-cloud providers offer direct-connection services that allow customers to securely link their legacy data centers to their cloud-resident applications, thereby enhancing security."
-    },
-    {
-      "Question": "What factors influence the decision to choose a public cloud or on-premises solution?",
-      "Answer": "Several factors influence this decision, including the functionality of the solutions, cost, integrational and organizational aspects, as well as safety and security considerations."
-    },
-    {
-      "Question": "Why are security concerns more significant in public clouds compared to private clouds?",
-      "Answer": "Security concerns are more significant in public clouds because services, applications, storage, and other resources are shared by multiple customers, increasing the risk of unauthorized access or breaches."
-    },
-    {
-      "Question": "Can public cloud services be free?",
-      "Answer": "Yes, public cloud services may be offered free of charge, although many are provided on a paid subscription basis."
-    },
-    {
-      "Question": "What is a key benefit of using direct-connection services offered by public-cloud providers?",
-      "Answer": "A key benefit is that they allow customers to securely link their legacy data centers to their cloud-resident applications, enhancing security and facilitating integration."
-    },
-    {
-      "Question": "How do enterprises and organizations typically decide between public cloud and on-premises solutions?",
-      "Answer": "Enterprises and organizations decide based on factors like solution functionality, cost, integration capabilities, organizational needs, and safety and security requirements."
-    },
-    {
-      "Question": "Are public clouds more economical than on-premises solutions?",
-      "Answer": "The cost-effectiveness of public clouds versus on-premises solutions depends on various factors, including the specific needs of the organization and the services required."
-    },
-    {
-      "Question": "What does the term 'public cloud' specifically refer to?",
-      "Answer": "The term 'public cloud' refers to cloud services delivered over the public Internet, which can be used by multiple customers."
-    },
-    {
-      "Question": "Do public-cloud providers ensure the security of customer data?",
-      "Answer": "Public-cloud providers offer services and tools to enhance security, but customers also have a responsibility to manage and secure their data within the cloud environment."
-    },
-    {
-      "Question": "Can legacy data centers be integrated with public cloud services?",
-      "Answer": "Yes, through direct-connection services offered by public-cloud providers, legacy data centers can be securely linked to cloud-resident applications."
-    }
-  ]
-}
+[
+  {
+    "Question": "What makes cloud services public?",
+    "Answer": "Cloud services are considered public when delivered over the public Internet, and may be offered as a paid subscription or free of charge."
+  },
+  {
+    "Question": "What are the main differences between public and private cloud services?",
+    "Answer": "There are few architectural differences between public and private cloud services, but security concerns increase substantially when services are shared by multiple customers in public clouds."
+  },
+  {
+    "Question": "How do public cloud providers address security concerns?",
+    "Answer": "Most public cloud providers offer direct-connection services that allow customers to securely link their legacy data centers to their cloud-resident applications."
+  },
+  {
+    "Question": "What factors influence the decision to choose a public cloud or on-premises solution?",
+    "Answer": "Several factors like functionality, cost, integrational and organizational aspects, as well as safety and security influence the decision of enterprises and organizations."
+  },
+  {
+    "Question": "What is a key consideration for enterprises when choosing between public cloud and on-premises solutions?",
+    "Answer": "Safety and security are key considerations for enterprises when deciding between public cloud and on-premises solutions due to the shared nature of public clouds."
+  },
+  {
+    "Question": "How are public cloud services typically delivered?",
+    "Answer": "Public cloud services are delivered over the public Internet and can be offered as a paid subscription or free of charge to users."
+  },
+  {
+    "Question": "What type of connection do public cloud providers offer for secure data transfer?",
+    "Answer": "Public cloud providers offer direct-connection services for customers to securely link their legacy data centers to cloud-resident applications."
+  },
+  {
+    "Question": "Why are security concerns higher in public clouds?",
+    "Answer": "Security concerns are higher in public clouds because services are shared by multiple customers, increasing the risk of data breaches and unauthorized access."
+  },
+  {
+    "Question": "What is a benefit of using public cloud services?",
+    "Answer": "Public cloud services offer scalability and flexibility, allowing businesses to quickly adapt to changing needs and demands."
+  },
+  {
+    "Question": "How do enterprises typically evaluate public cloud providers?",
+    "Answer": "Enterprises evaluate public cloud providers based on factors such as functionality, cost, integrational and organizational aspects, and safety and security."
+  },
+  {
+    "Question": "What is a common use case for public cloud services?",
+    "Answer": "A common use case for public cloud services is to provide scalable and on-demand access to computing resources and storage for businesses and organizations."
+  },
+  {
+    "Question": "What are the implications of using public cloud services for data storage?",
+    "Answer": "Using public cloud services for data storage implies that data is stored off-premises and may be subject to security risks and compliance concerns."
+  },
+  {
+    "Question": "How can public cloud services support business continuity?",
+    "Answer": "Public cloud services can support business continuity by providing scalable and redundant infrastructure, ensuring high availability and minimizing downtime."
+  },
+  {
+    "Question": "What is a key advantage of public cloud services over on-premises solutions?",
+    "Answer": "A key advantage of public cloud services is reduced capital expenditure and operational costs, as infrastructure is managed and maintained by the cloud provider."
+  },
+  {
+    "Question": "How do public cloud providers ensure data security and compliance?",
+    "Answer": "Public cloud providers ensure data security and compliance through various measures such as encryption, access controls, and adherence to industry standards and regulations."
+  }
+]
