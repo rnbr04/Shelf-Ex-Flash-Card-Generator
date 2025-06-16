@@ -3,11 +3,13 @@ from dotenv import load_dotenv
 from cerebras.cloud.sdk import Cerebras
 import os
 import json
+import csv
+import io
 from typing import Dict, Optional
 
 # Load environment variables
 try:
-    load_dotenv()
+    load_dotenv('.test_env')
     API_KEY = os.environ.get("API_KEY")
     if not API_KEY:
         st.error("API_KEY not found in environment variables")
@@ -109,6 +111,49 @@ def display_flashcards_ui() -> None:
         if idx < len(flashcards):
             st.divider()
 
+def add_export_buttons(flashcards: Dict) -> None:
+    """Add export buttons for JSON and CSV formats."""
+    st.markdown("---")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # JSON Export
+        json_str = json.dumps(flashcards, indent=2)
+        st.download_button(
+            label="Download as JSON",
+            data=json_str,
+            file_name="flashcards.json",
+            mime="application/json",
+            use_container_width=True
+        )
+    
+    with col2:
+        # CSV Export
+        output = io.StringIO()
+        writer = csv.writer(output)
+        
+        # Write header
+        writer.writerow(["Number", "Question", "Answer"])
+        
+        # Write each flashcard
+        for idx, card in enumerate(flashcards, start=1):
+            writer.writerow([
+                idx,
+                card["Question"],
+                card["Answer"]
+            ])
+        
+        csv_str = output.getvalue()
+        st.download_button(
+            label="Download as CSV",
+            data=csv_str,
+            file_name="flashcards.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
+
+
+
 def main() -> None:
     """Main application function."""
     st.set_page_config(
@@ -179,13 +224,7 @@ def main() -> None:
             display_flashcards_ui()
             
             # Add download option
-            json_str = json.dumps(st.session_state.flashcards, indent=2)
-            st.download_button(
-                label="Download Flashcards (JSON)",
-                data=json_str,
-                file_name="flashcards.json",
-                mime="application/json"
-            )
+            add_export_buttons(st.session_state.flashcards)
 
 if __name__ == "__main__":
     main()
