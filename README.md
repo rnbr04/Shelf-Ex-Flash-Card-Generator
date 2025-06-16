@@ -82,7 +82,7 @@ Cloud services are considered "public" when they are delivered over the public I
 
 [Raw File](docs/flashcards.json)
 
-```json
+```yaml
 {
   "flashcards": [
     {
