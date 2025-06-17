@@ -9,7 +9,7 @@ from typing import Dict, Optional
 
 # Load environment variables
 try:
-    load_dotenv('.test_env')
+    load_dotenv()
     API_KEY = os.environ.get("API_KEY")
     if not API_KEY:
         st.error("API_KEY not found in environment variables")
@@ -59,8 +59,10 @@ def generate_flashcards(input_text: str, num_flashcards: int, answer_length: str
         st.error(f"Error generating flashcards: {str(e)}")
         return None
 
+import streamlit as st
+
 def display_flashcards_ui() -> None:
-    """Display flashcards UI with persistent controls."""
+    """Display flashcards UI with two expander cards per row using native Streamlit components."""
     if "flashcards" not in st.session_state:
         return
     
@@ -73,43 +75,47 @@ def display_flashcards_ui() -> None:
     if "reverse_order" not in st.session_state:
         st.session_state.reverse_order = False
     
-    # Use columns for better layout
-    cols = st.columns(2)
-    with cols[0]:
-        # Toggle buttons that don't trigger rerun
-        show_all = st.toggle(
+    # Control buttons in columns
+    control_cols = st.columns(2)
+    with control_cols[0]:
+        st.toggle(
             "Show All Answers",
             value=st.session_state.show_all,
             key="show_all_toggle",
             on_change=lambda: setattr(st.session_state, "show_all", not st.session_state.show_all)
         )
-    with cols[1]:
-        reverse_order = st.toggle(
+    with control_cols[1]:
+        st.toggle(
             "Reverse Order",
             value=st.session_state.reverse_order,
             key="reverse_order_toggle",
             on_change=lambda: setattr(st.session_state, "reverse_order", not st.session_state.reverse_order)
         )
     
-    # flashcard_list = flashcards
+    # Apply reverse order if needed
     if st.session_state.reverse_order:
         flashcards = list(flashcards)[::-1]
     
-    # Calculate correct numbering based on order
+    # Display two expander cards per row
     total_cards = len(flashcards)
-    for idx, card in enumerate(flashcards, start=1):
-        # Calculate display number - if reversed, show original position
-        display_num = (total_cards - idx + 1) if st.session_state.reverse_order else idx
+    for i in range(0, len(flashcards), 2):
+        card_cols = st.columns(2)
         
-        # Use the session state value for expanded state
-        with st.expander(
-            f"Card {display_num}: {card['Question']}", 
-            expanded=st.session_state.show_all
-        ):
-            st.write(card['Answer'])
-        
-        if idx < len(flashcards):
-            st.divider()
+        for col_idx, col in enumerate(card_cols):
+            card_idx = i + col_idx
+            if card_idx >= len(flashcards):
+                break
+                
+            card = flashcards[card_idx]
+            display_num = (total_cards - card_idx) if st.session_state.reverse_order else (card_idx + 1)
+            
+            with col:
+                # Create expander with custom styling
+                with st.expander(
+                    f" 📌 Card {display_num}: {card['Question']}", 
+                    expanded=st.session_state.show_all
+                ):
+                    st.markdown(card['Answer'])
 
 def add_export_buttons(flashcards: Dict) -> None:
     """Add export buttons for JSON and CSV formats."""

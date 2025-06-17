@@ -8,7 +8,7 @@ An interactive web application that generates educational flashcards from text i
 ## Features
 
 - 🚀 Generate flashcards from any text content
-- 🎚️ Adjustable flashcard count (5-20 cards)
+- 🎚️ Adjustable flashcard count (10-20 cards)
 - 📏 Customizable answer length (Short, Medium, Long)
 - 🔄 Toggle between original and reversed order
 - 👁️ Show/hide all answers with one click
