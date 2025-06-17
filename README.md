@@ -42,9 +42,21 @@ An interactive web application that generates educational flashcards from text i
 
 4. Create a .env file in the project root with your API key:
    ```bash
-   API_KEY=your_cerebras_api_key_here
+   API_KEY = 'your_cerebras_api_key_here'
    ```
 
+## Deploying on StreamLit Community Cloud
+
+1. Fork the repository
+
+2. Login to Streamlit Cloud Dashboard
+
+3. Deploy the app from the repository
+
+4. Set `API_KEY` under App Settings > Secrets:
+   ```bash
+   API_KEY = 'your_cerebras_api_key_here'
+   ```
 ## Usage
 
 1. Run the application:
